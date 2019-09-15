@@ -1,0 +1,12 @@
+#Set working directory
+WORKDIR: "/storage/home/c/cah422/scratch/anophGenome-august2019/"
+
+#Set sample names
+SAMPLES: ["COL_albi-1", "COL_quad-3", "NC_crucians-2", "NC_crucians-4", "NC_punctipennis-2", "WA_freeborni-1", "COL_albi-2", "COL_quad-4", "NC_crucians-3", "NC_punctipennis-1", "NC_punctipennis-4", "WA_freeborni-2"]
+
+#Set adapter path
+ADAPTERS: "data/adapters.fa"
+
+#Select modules to load
+MODULES: ["bamtools", "bcftools", "bwa", "gatk", "picard", "python", "samtools", "trimmomatic", "vcftools"]
+

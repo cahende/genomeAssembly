@@ -4,6 +4,8 @@ WORKDIR: "/storage/home/c/cah422/scratch/anophGenome-august2019/"
 #Set sample names
 SAMPLES: ["COL_albi-1", "COL_quad-3", "NC_crucians-2", "NC_crucians-4", "NC_punctipennis-2", "WA_freeborni-1", "COL_albi-2", "COL_quad-4", "NC_crucians-3", "NC_punctipennis-1", "NC_punctipennis-4", "WA_freeborni-2"]
 
+SPECIES: ["COL_albi", "COL_quad", "NC_crucians", "NC_punctipennis", "WA_freeborni"]
+
 #Set adapter path
 ADAPTERS: "data/adapters.fa"
 

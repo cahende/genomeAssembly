@@ -11,4 +11,3 @@ ADAPTERS: "data/adapters.fa"
 
 #Select modules to load
 MODULES: ["bamtools", "bcftools", "bwa", "gatk", "picard", "python", "samtools", "trimmomatic", "vcftools"]
-

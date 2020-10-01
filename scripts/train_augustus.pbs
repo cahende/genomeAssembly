@@ -1,0 +1,44 @@
+#!/bin/bash
+#PBS -l nodes=1:ppn=8
+#PBS -l pmem=36gb
+#PBS -l walltime=36:00:00
+#PBS -M coalhende@gmail.com
+#PBS -N snakemake_run
+#PBS -m abe
+
+#necessary tools: augustus, AGAT (Another Gff Analysis Toolkit), and blast
+#must start with 1) gff file containing protein coding genes and 2) genome .fa corresponding to gff
+#for this project: genome-build AgamP3 NCBI_Assembly:GCA_000005575.1
+#accessed here: https://ftp.ncbi.nih.gov/genomes/genbank/invertebrate/Anopheles_gambiae/latest_assembly_versions/GCA_000005575.1_AgamP3/
+
+mkdir augustusTraining
+cd augustusTraining
+
+#filter genes by score
+agat_sp_filter_feature_by_attribute_value.pl --gff GCA_000005575.1.gff  --value 0.3 -a _AED -t ">=" -o filter/codingGeneFeatures.filter.gff
+
+#select the longest isoform for each mRNA
+agat_sp_keep_longest_isoform.pl --gff filter/codingGeneFeatures.filter.gff -o filter/codingGeneFeatures.filter.longest_cds.gff
+
+#select complete genes
+agat_sp_filter_incomplete_gene_coding_models.pl --gff filter/codingGeneFeatures.filter.longest_cds.gff -f GCA_000005575.1.fa -o filter/codingGeneFeatures.filter.longest_cds.complete.gff
+
+#filter for distance from neighboring genes
+#minimum 500 bp intergenic region default
+agat_sp_filter_by_locus_distance.pl --gff filter/codingGeneFeatures.filter.longest_cds.complete.gff -o filter/codingGeneFeatures.filter.longest_cds.complete.good_distance.gff
+
+#remove redundency 
+
+#extract sequnces
+agat_sp_extract_sequences.pl --gff filtercodingGeneFeatures.filter.longest_cds.complete.good_distance.gff -f GCA_000005575.1.fa --aa -o protein/codingGeneFeatures.filter.longest_cds.complete.good_distance.proteins.fa  
+
+#make a blast database
+makeblastdb -in protein/codingGeneFeatures.filter.longest_cds.complete.good_distance.proteins.fa -dbtype prot
+
+#recursive blast to idenify genes with high similarity
+blastp -query protein/codingGeneFeatures.filter.longest_cds.complete.good_distance.proteins.fa -db 
+protein/codingGeneFeatures.filter.longest_cds.complete.good_distance.proteins.fa -outfmt 6 -out blast_recursive/codingGeneFeatures.filter.longest_cds.complete.good_distance.proteins.fa.blast_recursive  
+
+#filter genes with high similarity
+agat_sp_filter_by_mrnaBlastValue.pl --gff filter/codingGeneFeatures.filter.longest_cds.complete.good_distance.gff --blast blast_recursive/codingGeneFeatures.filter.longest_cds.complete.good_distance.proteins.fa.blast_recursive --outfile nonredundant/codingGeneFeatures.nr.gff
+

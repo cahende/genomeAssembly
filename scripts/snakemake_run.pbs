@@ -16,6 +16,6 @@ cd /storage/home/c/cah422/scratch/anophGenome-august2019/
 #run snakemake
 conda activate bioinfo
 snakemake --unlock --cores all
-snakemake --ri -j 3 --cluster-config cluster.yaml --cluster "qsub -A {cluster.QUEUE} -l walltime={cluster.WALLTIME} -l nodes={cluster.NODES}:ppn={cluster.PPN} -l pmem={cluster.PMEM} -M {cluster.EMAIL} -m abe"
+snakemake --ri -j 5 --cluster-config cluster.yaml --cluster "qsub -A {cluster.QUEUE} -l walltime={cluster.WALLTIME} -l nodes={cluster.NODES}:ppn={cluster.PPN} -l pmem={cluster.PMEM} -M {cluster.EMAIL} -m abe"
 
 exit;

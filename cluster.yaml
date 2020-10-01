@@ -1,6 +1,6 @@
 __default__:
         #set queue
-        QUEUE: open
+        QUEUE: open 
         #set walltime
         WALLTIME: 48:00:00
         #set nodes and processors

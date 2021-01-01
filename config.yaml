@@ -11,3 +11,12 @@ ADAPTERS: "data/adapters.fa"
 
 #Select modules to load
 MODULES: ["bamtools", "bcftools", "bwa", "gatk", "picard", "python", "samtools", "trimmomatic", "vcftools"]
+
+#interproScan install path
+INTERPROSCAN: "bin/interproScanInstall/interproscan-5.48-83.0/interproscan.sh"
+
+#RepeatMasker install path
+REPEATMASKER: "bin/repeatMaskerInstall/RepeatMasker/RepeatMasker"
+
+#Location of genes for reciprocal blast
+GENES: "data/anGambiaeDB-UP000007062/UP000007062_7165.fasta"

@@ -1,0 +1,44 @@
+#!/bin/bash
+#PBS -l nodes=1:ppn=8
+#PBS -l pmem=32gb
+#PBS -l walltime=24:00:00
+#PBS -M coalhende@gmail.com
+#PBS -N runExonerate
+#PBS -m abe
+#PBS -l feature=rhel7
+
+#give access to updated java
+cd /storage/home/cah422/scratch/anophGenome-august2019/
+
+conda activate bioinfo
+
+#run exonerate using An. gambiae proteome UP000007062 against all novel genomes
+for FILE in `ls data/anGambiaeSplit/*.fa` 
+do
+	exonerate --model protein2genome -q $FILE -t data/velvetAssemblyAll/genomeBuildsRepeatsRemoved/COL_albi-1-repeatMasked-noN.fa --ryo "%qi,%qab,%qae,%ti,%tab,%tae,%s,%pi,%ps,%tcs\n"  --showvulgar no --showalignment no >> COL_albi-1.tab
+done
+
+#exonerate --model protein2genome -q data/UP000007062_7165.fasta -t data/velvetAssemblyAll/genomeBuildsRepeatsRemoved/COL_albi-2-repeatMasked-noN.fa --ryo "%qi,%qab,%qae,%ti,%tab,%tae,%s,%pi,%ps,%tcs\n"  --showvulgar no --showalignment no > COL_albi-2.tab
+
+#exonerate --model protein2genome -q data/UP000007062_7165.fasta -t data/velvetAssemblyAll/genomeBuildsRepeatsRemoved/COL_quad-3-repeatMasked-noN.fa --ryo "%qi,%qab,%qae,%ti,%tab,%tae,%s,%pi,%ps,%tcs\n"  --showvulgar no --showalignment no > COL_quad-3.tab
+
+#exonerate --model protein2genome -q data/UP000007062_7165.fasta -t data/velvetAssemblyAll/genomeBuildsRepeatsRemoved/COL_quad-4-repeatMasked-noN.fa --ryo "%qi,%qab,%qae,%ti,%tab,%tae,%s,%pi,%ps,%tcs\n"  --showvulgar no --showalignment no > COL_quad-4.tab
+
+#exonerate --model protein2genome -q data/UP000007062_7165.fasta -t data/velvetAssemblyAll/genomeBuildsRepeatsRemoved/NC_crucians-2-repeatMasked-noN.fa --ryo "%qi,%qab,%qae,%ti,%tab,%tae,%s,%pi,%ps,%tcs\n"  --showvulgar no --showalignment no > NC_crucians-2.tab
+
+#exonerate --model protein2genome -q data/UP000007062_7165.fasta -t data/velvetAssemblyAll/genomeBuildsRepeatsRemoved/NC_crucians-3-repeatMasked-noN.fa --ryo "%qi,%qab,%qae,%ti,%tab,%tae,%s,%pi,%ps,%tcs\n"  --showvulgar no --showalignment no > NC_crucians-3.tab
+
+#exonerate --model protein2genome -q data/UP000007062_7165.fasta -t data/velvetAssemblyAll/genomeBuildsRepeatsRemoved/NC_crucians-4-repeatMasked-noN.fa --ryo "%qi,%qab,%qae,%ti,%tab,%tae,%s,%pi,%ps,%tcs\n"  --showvulgar no --showalignment no > NC_crucians-4.tab
+
+#exonerate --model protein2genome -q data/UP000007062_7165.fasta -t data/velvetAssemblyAll/genomeBuildsRepeatsRemoved/NC_punctipennis-1-repeatMasked-noN.fa --ryo "%qi,%qab,%qae,%ti,%tab,%tae,%s,%pi,%ps,%tcs\n"  --showvulgar no --showalignment no > NC_punctipennis-1.tab
+
+#exonerate --model protein2genome -q data/UP000007062_7165.fasta -t data/velvetAssemblyAll/genomeBuildsRepeatsRemoved/NC_punctipennis-2-repeatMasked-noN.fa --ryo "%qi,%qab,%qae,%ti,%tab,%tae,%s,%pi,%ps,%tcs\n"  --showvulgar no --showalignment no > NC_punctipennis-2.tab
+
+#exonerate --model protein2genome -q data/UP000007062_7165.fasta -t data/velvetAssemblyAll/genomeBuildsRepeatsRemoved/NC_punctipennis-4-repeatMasked-noN.fa --ryo "%qi,%qab,%qae,%ti,%tab,%tae,%s,%pi,%ps,%tcs\n"  --showvulgar no --showalignment no > NC_punctipennis-4.tab
+
+#exonerate --model protein2genome -q data/UP000007062_7165.fasta -t data/velvetAssemblyAll/genomeBuildsRepeatsRemoved/WA_freeborni-1-repeatMasked-noN.fa --ryo "%qi,%qab,%qae,%ti,%tab,%tae,%s,%pi,%ps,%tcs\n"  --showvulgar no --showalignment no > WA_freeborni-1.tab
+
+#exonerate --model protein2genome -q data/UP000007062_7165.fasta -t data/velvetAssemblyAll/genomeBuildsRepeatsRemoved/WA_freeborni-2-repeatMasked-noN.fa --ryo "%qi,%qab,%qae,%ti,%tab,%tae,%s,%pi,%ps,%tcs\n"  --showvulgar no --showalignment no > WA_freeborni-2.tab
+
+
+exit;

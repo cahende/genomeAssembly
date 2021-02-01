@@ -1,0 +1,17 @@
+#!/bin/bash
+#PBS -l nodes=1:ppn=8
+#PBS -l pmem=36gb
+#PBS -l walltime=36:00:00
+#PBS -M coalhende@gmail.com
+#PBS -N combineOrtho
+#PBS -m abe
+#PBS -l feature=rhel7
+
+#give access to updated java
+cd /storage/home/cah422/scratch/anophGenome-august2019/
+
+conda activate bioinfo
+module load r
+Rscript combineOrthologs.R
+
+exit;

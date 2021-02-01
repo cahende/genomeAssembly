@@ -1,0 +1,22 @@
+#steps for processing of exonerate output
+#note that in each step sample name must be updated in script to sample being processed
+
+#load environment with bedtools
+conda activate bioinfo 
+
+#run this script on each sample to put output into format that can be parsed in downstream steps
+./correctOutputExonerate.sh
+
+#run this to turn corrected output into bed file
+Rscript convertToBed.R
+
+#sort and cluster new bed file prior to filtering out repeat matches
+bedtools sort -i WA_freeborni-2.bed > WA_freeborni-2-sorted.bed
+bedtools cluster -i WA_freeborni-2-sorted.bed > WA_freeborni-2-combined.bed
+
+#filter out genes mapping to multiple regions and regions with multiple genes mapping to them
+Rscript filterBed.R
+
+#merge filtered bed file so so only one entry for region/gene match and all sequences are combined in comma separated format
+bedtools merge -i WA_freeborni-2-combinedFiltered.bed -o distinct -c 4,5 > WA_freeborni-2-combinedFilteredMerged.bed
+
